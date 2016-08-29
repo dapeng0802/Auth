@@ -25,5 +25,4 @@ public class NodeAttribute {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
 }
