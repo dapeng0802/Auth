@@ -37,7 +37,7 @@ public class UserDAO extends BaseDAO {
 		}
 	}
 	
-	public void save(User user) {
+	public void saveUser(User user) {
 		String sql = "insert into auth_user(id, name, pwd) values (?, ?, ?)";
 		jdbcTemplate.update(sql, user.getId(), user.getName(), user.getPwd());
 	}
@@ -58,5 +58,23 @@ public class UserDAO extends BaseDAO {
 		sql.deleteCharAt(sql.lastIndexOf(","));
 		sql.append(")");
 		return jdbcTemplate.query(sql.toString(), ids.toArray(new Object[0]), new UserMapper());
+	}
+	
+	/**
+	 * 分页查询用户信息
+	 * @param page 当前页码
+	 * @param size 每页记录数
+	 * @return 用户集合
+	 */
+	public Collection<User> findPage(int page, int size) {
+		if(page < 1) {
+			page = 1;
+		}
+		if(size < 0) {
+			size = 20;
+		}
+		String sql = "select * from auth_user limit ?, ?";
+		int skip = (page - 1) * size;
+		return jdbcTemplate.query(sql, new Object[]{skip, size}, new UserMapper());
 	}
 }
