@@ -3,6 +3,7 @@ package com.rendp.auth.dao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.jdbc.core.RowMapper;
 
@@ -37,21 +38,48 @@ public class UserDAO extends BaseDAO {
 		}
 	}
 	
+	/**
+	 * 保存用户
+	 * @param user 用户
+	 */
 	public void saveUser(User user) {
 		String sql = "insert into auth_user(id, name, pwd) values (?, ?, ?)";
 		jdbcTemplate.update(sql, user.getId(), user.getName(), user.getPwd());
 	}
 	
+	/**
+	 * 更新用户
+	 * @param user 用户
+	 */
+	public void updateUser(User user) {
+		String sql = "update auth_user set name = ? where id = ?";
+		jdbcTemplate.update(sql, user.getName(), user.getId());
+	}
+	
+	/**
+	 * 根据 ID 删除用户
+	 * @param id 用户 ID
+	 */
 	public void deleteById(Long id) {
 		String sql = "delete from auth_user where id = ?";
 		jdbcTemplate.update(sql);
 	}
 	
+	/**
+	 * 根据 ID 查询用户
+	 * @param id 用户 ID
+	 * @return
+	 */
 	public User findById(Long id) {
 		String sql = "select * from auth_user where id = ?";
 		return jdbcTemplate.queryForObject(sql, new Object[]{id}, new UserMapper());
 	}
 	
+	/**
+	 * 根据 ID 集合查询用户集合
+	 * @param ids ID 集合
+	 * @return
+	 */
 	public Collection<User> findByIds(Collection<Long> ids) {
 		StringBuilder sql = new StringBuilder("select * from auth_user where id in (");
 		ids.forEach((id) -> sql.append(id).append("?, "));
@@ -76,5 +104,23 @@ public class UserDAO extends BaseDAO {
 		String sql = "select * from auth_user limit ?, ?";
 		int skip = (page - 1) * size;
 		return jdbcTemplate.query(sql, new Object[]{skip, size}, new UserMapper());
+	}
+	
+	public List<User> findUsers(int page, int size) {
+		String sql = "select * from auth_user limit ?, ?";
+		return jdbcTemplate.query(sql, new Object[]{(page - 1) * size, size}, new UserMapper());
+	}
+	
+	/**
+	 * 根据 ID 集合查询用户集合
+	 * @param ids ID 集合
+	 * @return
+	 */
+	public List<User> findUsers(Collection<Long> ids) {
+		StringBuilder sql = new StringBuilder("select * from auth_user where id in (");
+		ids.forEach((id) -> sql.append(id).append("?, "));
+		sql.deleteCharAt(sql.lastIndexOf(","));
+		sql.append(")");
+		return jdbcTemplate.query(sql.toString(), ids.toArray(new Object[0]), new UserMapper());
 	}
 }
