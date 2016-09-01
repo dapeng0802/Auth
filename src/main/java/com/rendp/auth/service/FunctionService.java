@@ -3,10 +3,12 @@ package com.rendp.auth.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.rendp.auth.dao.FunctionDAO;
 import com.rendp.auth.entity.Function;
 
+@Service
 public class FunctionService {
 	
 	@Autowired private FunctionDAO functionDAO;

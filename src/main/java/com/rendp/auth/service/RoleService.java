@@ -4,12 +4,14 @@ import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.rendp.auth.dao.RoleDAO;
 import com.rendp.auth.dao.RoleFunctionDAO;
 import com.rendp.auth.entity.Role;
 import com.rendp.auth.entity.RoleFunction;
 
+@Service
 public class RoleService {
 	
 	@Autowired private RoleDAO roleDAO;
