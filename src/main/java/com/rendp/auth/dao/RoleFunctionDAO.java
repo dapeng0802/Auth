@@ -7,10 +7,12 @@ import java.util.Collection;
 import java.util.List;
 
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
 
 import com.rendp.auth.common.BaseDAO;
 import com.rendp.auth.entity.RoleFunction;
 
+@Repository
 public class RoleFunctionDAO extends BaseDAO {
 	
 	private class RoleFunctionMapper implements RowMapper<RoleFunction> {

@@ -10,5 +10,8 @@
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/spring-context-4.1.7.RELEASE.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/spring-web-4.1.7.RELEASE.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/spring-webmvc-4.1.7.RELEASE.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/servlet-api.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/spring-aop-4.1.7.RELEASE.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/spring-aspects-4.1.7.RELEASE.jar"/>
 	<classpathentry kind="output" path="src/main/webapp/WEB-INF/classes"/>
 </classpath>

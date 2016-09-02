@@ -14,10 +14,12 @@ import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Repository;
 
 import com.rendp.auth.common.BaseDAO;
 import com.rendp.auth.entity.Role;
 
+@Repository
 public class RoleDAO extends BaseDAO {
 	
 	private class RoleMapper implements RowMapper<Role> {

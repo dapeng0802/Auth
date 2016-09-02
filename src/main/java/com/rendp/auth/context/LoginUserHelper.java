@@ -1,4 +1,4 @@
-package com.rendp.auth.controller;
+package com.rendp.auth.context;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,15 +11,8 @@ import java.util.Objects;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.rendp.auth.common.Whether;
-import com.rendp.auth.context.LoginUserCache;
-import com.rendp.auth.context.NativeCache;
-import com.rendp.auth.context.UserContext;
 import com.rendp.auth.dto.Accordion;
 import com.rendp.auth.entity.Function;
 import com.rendp.auth.entity.Role;
@@ -29,59 +22,32 @@ import com.rendp.auth.entity.UserRole;
 import com.rendp.auth.service.RoleService;
 import com.rendp.auth.service.UserService;
 
-@Controller
-public class LoginController {
-	
-	@Autowired private UserService userService;
-	@Autowired private RoleService roleService;
-	@Autowired private NativeCache nativeCache;
+public class LoginUserHelper {
 
-	@RequestMapping(value="/index", method=RequestMethod.GET)
-	public String index() {
-		return "/security/login";
-	}
+	@Autowired private UserService userService;
 	
-	@RequestMapping(value="/login", method=RequestMethod.POST)
-	public String login(Model model, String name, String pwd) {
-		User user = userService.getUser(name, pwd);
-		if(null == user) {
-			return "/security/login";
+	@Autowired private RoleService roleService;
+	
+	@Autowired private NativeCache nativeCache;
+	
+	public void executeLogin(String username, String pwd) {
+		User user = userService.getUser(username, pwd);
+		List<UserRole> userRoles = userService.getUserRolesByUserId(user.getId());
+		if(null == userRoles || 0 == userRoles.size()) {
+			return;
 		}
+		List<Long> roleIds = new ArrayList<Long>();
+		for(UserRole ur : userRoles) {
+			roleIds.add(ur.getRoleId());
+		}
+		List<Role> roles = roleService.getRoles(roleIds);
+		nativeCache.setRoles(user.getId(), roles);
 		
-		try {
-			if(Objects.equals("admin", user.getName())) {
-				model.addAttribute("accordions", getAccordions(true, user.getId()));
-			} else {
-				List<UserRole> userRoles = userService.getUserRolesByUserId(user.getId());
-				if(null == userRoles || 0 == userRoles.size()) {
-					return "/security/login";
-				}
-				List<Long> roleIds = new ArrayList<Long>();
-				for(UserRole ur : userRoles) {
-					roleIds.add(ur.getRoleId());
-				}
-				List<Role> roles = roleService.getRoles(roleIds);
-				nativeCache.setRoles(user.getId(), roles);
-				
-				LoginUserCache.put(user);
-				List<Accordion> accordions = getAccordions(false, user.getId());
-				model.addAttribute("accordions", accordions);
-				LoginUserCache.setAccordions(user.getName(), accordions);
-			}
-			
-			return "/layout.main";
-		} catch(Exception e) {
-			LoginUserCache.remove(UserContext.getCurrent().getUser().getName());
-			return "/security/login";
-		}
+		LoginUserCache.put(user);
+		List<Accordion> accordions = getAccordions(false, user.getId());
+		LoginUserCache.setAccordions(user.getName(), accordions);
 	}
-	
-	@RequestMapping(value="/logout", method=RequestMethod.GET)
-	public String logout() {
-		LoginUserCache.remove(UserContext.getCurrent().getUser().getName());
-		return "/security/login";
-	}
-	
+
 	private List<Accordion> getAccordions(boolean isAdmin, Long userId) {
 		Set<String> permissionUrls = new HashSet<>();
 		Set<Long> rootFunctionIdSet = new HashSet<>();
@@ -129,7 +95,7 @@ public class LoginController {
 		}
 		return rootAccordionSet;
 	}
-
+	
 	private void completeAccordion(List<Accordion> permissionAccordionSet,
 			Accordion rootAccordion) {
 		for(Accordion accordion : permissionAccordionSet) {
@@ -138,5 +104,4 @@ public class LoginController {
 			}
 		}
 	}
-	
 }
