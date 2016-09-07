@@ -18,6 +18,7 @@ public class WebApplicationContext implements ApplicationContextAware {
 		ctx = context;
 	}
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static <T> T getBean(Class clazz) {
 		return (T) ctx.getBean(clazz);
 	}
