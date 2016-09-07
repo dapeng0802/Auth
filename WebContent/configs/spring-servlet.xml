@@ -24,11 +24,19 @@
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 
-	<bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>
+	<!-- <bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>
     <bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping"/>
     
     <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"/>
-    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter"/>
+    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter"/> -->
+    
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	    <property name="prefix" value="/" />
+	    <property name="suffix" value=".jsp" />
+	</bean>
+    
+    <mvc:default-servlet-handler />
+    <mvc:resources mapping="/styles/**" location="/css/"/>
     
     <!-- 定义使用C3P0连接池的数据源 -->
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">

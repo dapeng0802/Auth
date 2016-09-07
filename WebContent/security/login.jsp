@@ -8,11 +8,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <!-- Bootstrap -->
-        <link rel="stylesheet" media="screen" href="/css/bootstrap/bootstrap.min.css">
-        <link rel="stylesheet" media="screen" href="/css/bootstrap/bootstrap-theme.min.css">
+        <link rel="stylesheet" media="screen" href="css/bootstrap/bootstrap.min.css">
+        <link rel="stylesheet" media="screen" href="css/bootstrap/bootstrap-theme.min.css">
 
         <!-- Bootstrap Admin Theme -->
-        <link rel="stylesheet" media="screen" href="/css/bootstrap/bootstrap-admin-theme.css">
+        <link rel="stylesheet" media="screen" href="css/bootstrap/bootstrap-admin-theme.css">
 
         <!-- Custom styles -->
         <style type="text/css">
@@ -55,8 +55,8 @@
             </div>
         </div>
 
-        <script type="text/javascript" src="/js/jquery-3.1.0.min.js"></script>
-        <script type="text/javascript" src="/js/bootstrap/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
+        <script type="text/javascript" src="js/bootstrap/bootstrap.min.js"></script>
         <script type="text/javascript">
             $(function() {
                 // Setting focus

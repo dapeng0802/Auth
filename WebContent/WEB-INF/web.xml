@@ -4,7 +4,7 @@
 
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>/configs/applicationContext.xml,classpath*:applicationContext*.xml</param-value>
+		<param-value>/configs/spring-servlet.xml,classpath*:applicationContext*.xml</param-value>
 	</context-param>
 	
 	<listener>
@@ -45,7 +45,7 @@
 		
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>configs/applicationContext.xml,classpath*:applicationContext*.xml</param-value>
+			<param-value>configs/spring-servlet.xml</param-value>
 		</init-param>
 		
 		<load-on-startup>1</load-on-startup>
@@ -53,7 +53,7 @@
 	
 	<servlet-mapping>
 		<servlet-name>spring</servlet-name>
-		<url-pattern>/*</url-pattern>
+		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 	
 	<welcome-file-list>
