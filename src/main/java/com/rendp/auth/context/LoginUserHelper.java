@@ -11,6 +11,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.rendp.auth.common.Whether;
 import com.rendp.auth.dto.Accordion;
@@ -22,6 +23,7 @@ import com.rendp.auth.entity.UserRole;
 import com.rendp.auth.service.RoleService;
 import com.rendp.auth.service.UserService;
 
+@Component
 public class LoginUserHelper {
 
 	@Autowired private UserService userService;

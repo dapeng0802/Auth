@@ -47,10 +47,10 @@ public class LoginController {
 		if(null == user) {
 			return "/security/login";
 		}
-		
+		List<Accordion> accordions = null;
 		try {
 			if(Objects.equals("admin", user.getName())) {
-				model.addAttribute("accordions", getAccordions(true, user.getId()));
+				accordions = getAccordions(true, user.getId());
 			} else {
 				List<UserRole> userRoles = userService.getUserRolesByUserId(user.getId());
 				if(null == userRoles || 0 == userRoles.size()) {
@@ -63,13 +63,16 @@ public class LoginController {
 				List<Role> roles = roleService.getRoles(roleIds);
 				nativeCache.setRoles(user.getId(), roles);
 				
-				LoginUserCache.put(user);
-				List<Accordion> accordions = getAccordions(false, user.getId());
-				model.addAttribute("accordions", accordions);
-				LoginUserCache.setAccordions(user.getName(), accordions);
+				accordions = getAccordions(false, user.getId());
+				
 			}
 			
-			return "/layout.main";
+			LoginUserCache.put(user);
+			model.addAttribute("accordions", accordions);
+			model.addAttribute("username", name);
+			LoginUserCache.setAccordions(user.getName(), accordions);
+			
+			return "/layout/main";
 		} catch(Exception e) {
 			LoginUserCache.remove(UserContext.getCurrent().getUser().getName());
 			return "/security/login";
