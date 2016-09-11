@@ -42,27 +42,6 @@
             .bs-docs-masthead a:hover{
                 text-decoration: none;
             }
-            .meritoo-logo a{
-                background-color: #fff;
-                border: 1px solid rgba(66, 139, 202, 0.4);
-                display: block;
-                font-family: Ubuntu;
-                padding: 22px 0;
-                text-align: center;
-            }
-            .meritoo-logo a,
-            .meritoo-logo a:hover,
-            .meritoo-logo a:focus{
-                text-decoration: none;
-            }
-            .meritoo-logo a img{
-                display: block;
-                margin: 0 auto;
-            }
-            .meritoo-logo a span{
-                color: #4e4b4b;
-                font-size: 18px;
-            }
             .row-urls{
                 margin-top: 4px;
             }
@@ -118,62 +97,56 @@
         </nav>
 
         <div class="container">
-            <!-- left, vertical navbar & content -->
-            <div class="row">
-                <!-- left, vertical navbar -->
-                <div class="col-md-2 bootstrap-admin-col-left">
-                    <ul class="nav navbar-collapse collapse bootstrap-admin-navbar-side">
-                    	<li>
-                    	<%
-                    	List<Accordion> accordions = (List<Accordion>) request.getAttribute("accordions");
-                    	for(Accordion accordion : accordions) {
-                    		out.print("<a href='#'><i class='glyphicon glyphicon-chevron-down'></i> ");
-                    		out.print(accordion.getName());
-                    		out.println("</a>");
-                    		
-                    		if(accordion.getChildren().size() > 0) {
-                    			out.println("<ul class='nav navbar-collapse bootstrap-admin-navbar-side'>");
-                    			for(Accordion child : accordion.getChildren()) {
-                            		out.print("<li><a href='");
-                            		out.print(child.getUrl());
-                            		out.print("'><i class='glyphicon glyphicon-chevron-right'></i> ");
-                            		out.print(child.getName());
-                            		out.println("</a></li>");
-                            	}
-                    			out.println("</ul>");
-                    		}
-                    		
-                    	}
-                    
-                    	%>
-                    	</li>
-                    
-                        <li class="active">
-                            <a href="about.html"><i class="glyphicon glyphicon-chevron-right"></i> About</a>
-                        </li>
-                    </ul>
-                </div>
+	        <aside class="left-side sidebar-offcanvas">
+	            <!-- sidebar: style can be found in sidebar.less -->
+	            <section class="sidebar">
+		            <!-- left, vertical navbar & content -->
+		            <div class="row">
+		                <!-- left, vertical navbar -->
+		                <div class="col-md-2 bootstrap-admin-col-left">
+		                    <ul class="nav navbar-collapse collapse bootstrap-admin-navbar-side">
+		                    	<li>
+		                    	<%
+		                    	List<Accordion> accordions = (List<Accordion>) request.getAttribute("accordions");
+		                    	int i = 0;
+		                    	for(Accordion accordion : accordions) {
+		                    		i++;
+		                    		out.print("<a href='#collape"+i+"' data-toggle='collapse'><i class='glyphicon glyphicon-chevron-down'></i> ");
+		                    		out.print(accordion.getName());
+		                    		out.println("</a>");
+		                    		
+		                    		if(accordion.getChildren().size() > 0) {
+		                    			out.println("<ul id='collape"+i+"' class='nav nav-list secondmenu'>");
+		                    			for(Accordion child : accordion.getChildren()) {
+		                            		out.print("<li><a href='");
+		                            		out.print(child.getUrl());
+		                            		out.print("'><i class='glyphicon glyphicon-chevron-right'></i> ");
+		                            		out.print(child.getName());
+		                            		out.println("</a></li>");
+		                            	}
+		                    			out.println("</ul>");
+		                    		}
+		                    		
+		                    	}
+		                    
+		                    	%>
+		                    	</li>
+		                    
+		                        <li class="active">
+		                            <a href="about.html"><i class="glyphicon glyphicon-chevron-right"></i> About</a>
+		                        </li>
+		                    </ul>
+		                </div>
+		            </div>
+		        </section>
+		    </aside>
+		        
+		        
 
-                <!-- content -->
-                <div class="col-md-10">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <div class="text-muted bootstrap-admin-box-title">License</div>
-                                </div>
-                                <div class="bootstrap-admin-panel-content">
-                                    <p>The MIT License (MIT)</p>
-                                    <p>Copyright © 2013 - Meritoo.pl &lt;github [at] meritoo [dot] pl&gt;</p>
-                                    <p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
-                                    <p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
-                                    <p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
+            <aside class="right-side">
+                <sitemesh:write property='body' />
+            </aside>
         </div>
 
         <!-- footer -->

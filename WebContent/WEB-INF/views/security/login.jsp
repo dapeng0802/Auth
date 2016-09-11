@@ -32,7 +32,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="alert alert-info">
-                        <a class="close" data-dismiss="alert" href="#">&times;</a>
+                        <a class="close" data-dismiss="alert">&times;</a>
                         Press enter key or click the Submit button
                     </div>
                     <form method="post" action="login" class="bootstrap-admin-login-form">

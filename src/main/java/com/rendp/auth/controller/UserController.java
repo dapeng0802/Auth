@@ -24,7 +24,7 @@ public class UserController {
 	 */
 	@RequestMapping(value="/index")
 	public String userList() {
-		return "/security/user/user_list";
+		return "/user/user_list";
 	}
 	
 	/**
