@@ -26,7 +26,7 @@ public class RoleController {
 	 */
 	@RequestMapping(value="/index")
 	public String index() {
-		return "security/role/role_list";
+		return "/role/role_list";
 	}
 	
 	/**
