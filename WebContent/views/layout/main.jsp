@@ -51,6 +51,12 @@
             .row-urls .col-md-6 a{
                 font-size: 14px;
             }
+            .secondmenu{
+            	font-size: 12px;
+            }
+            iframe{
+            	border: 0px;
+            }
         </style>
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -87,7 +93,7 @@
 								<li><a href="#">Another action</a></li>
 								<li><a href="#">Setting</a></li>
 								<li role="presentation" class="divider"></li>
-								<li><a href="logout">Logout</a></li>
+								<li><a href="/logout">Logout</a></li>
 							</ul></li>
 					</ul>
 				</div>
@@ -96,53 +102,50 @@
         </nav>
 
         <div class="container">
-	        <aside class="col-md-2 left-side sidebar-offcanvas">
-	            <!-- sidebar: style can be found in sidebar.less -->
-	            <section class="sidebar">
-		            <!-- left, vertical navbar & content -->
-		            <div class="row">
-		                <!-- left, vertical navbar -->
-		                <div class="bootstrap-admin-col-left">
-		                    <ul class="nav navbar-collapse collapse bootstrap-admin-navbar-side">
-		                    	<li>
-		                    	<%
-		                    	List<Accordion> accordions = (List<Accordion>) request.getAttribute("accordions");
-		                    	int i = 0;
-		                    	for(Accordion accordion : accordions) {
-		                    		i++;
-		                    		out.print("<a href='#collape"+i+"' data-toggle='collapse'><i class='glyphicon glyphicon-chevron-down'></i> ");
-		                    		out.print(accordion.getName());
-		                    		out.println("</a>");
-		                    		
-		                    		if(accordion.getChildren().size() > 0) {
-		                    			out.println("<ul id='collape"+i+"' class='nav nav-list secondmenu'>");
-		                    			for(Accordion child : accordion.getChildren()) {
-		                            		out.print("<li><a href='");
-		                            		out.print(child.getUrl());
-		                            		out.print("'><i class='glyphicon glyphicon-chevron-right'></i> ");
-		                            		out.print(child.getName());
-		                            		out.println("</a></li>");
-		                            	}
-		                    			out.println("</ul>");
-		                    		}
-		                    		
-		                    	}
-		                    
-		                    	%>
-		                    	</li>
-		                    
-		                        <li class="active">
-		                            <a href="about.html"><i class="glyphicon glyphicon-chevron-right"></i> About</a>
-		                        </li>
-		                    </ul>
-		                </div>
-		            </div>
-		        </section>
-		    </aside>
-		        
-            <aside class="col-md-10 right-side">
-                <sitemesh:write property='body' />
-            </aside>
+	        <!-- <iframe name="leftFrame"> -->
+	        	<div class="row col-md-2">
+	                <!-- left, vertical navbar -->
+	                <div class="bootstrap-admin-col-left">
+	                    <ul class="nav navbar-collapse collapse bootstrap-admin-navbar-side">
+	                    	<li>
+	                    	<%
+	                    	List<Accordion> accordions = (List<Accordion>) request.getAttribute("accordions");
+	                    	int i = 0;
+	                    	for(Accordion accordion : accordions) {
+	                    		i++;
+	                    		out.print("<a href='#collape"+i+"' data-toggle='collapse'><i class='glyphicon glyphicon-chevron-down'></i> ");
+	                    		out.print(accordion.getName());
+	                    		out.println("</a>");
+	                    		
+	                    		if(accordion.getChildren().size() > 0) {
+	                    			out.println("<ul id='collape"+i+"' class='nav navbar-list bootstrap-admin-navbar-side'>");
+	                    			for(Accordion child : accordion.getChildren()) {
+	                            		out.print("<li class='secondmenu'><a href='");
+	                            		out.print(child.getUrl());
+	                            		out.print("' target='rightFrame'><i class='glyphicon glyphicon-chevron-right'></i>&nbsp;&nbsp;");
+	                            		out.print(child.getName());
+	                            		out.println("</a></li>");
+	                            	}
+	                    			out.println("</ul>");
+	                    		}
+	                    		
+	                    	}
+	                    
+	                    	%>
+	                    	</li>
+	                    
+	                        <li>
+	                            <a href="/about.html"><i class="glyphicon glyphicon-chevron-right"></i> About</a>
+	                        </li>
+	                    </ul>
+	                </div>
+	            </div>
+	        <!-- </iframe> -->
+	        <div class="col-md-10">
+		        <iframe name="rightFrame" height="450px" width="100%">
+		        	
+		        </iframe>
+	        </div>
         </div>
 
         <!-- footer -->
@@ -162,5 +165,17 @@
         <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="/bootstrap/js/twitter-bootstrap-hover-dropdown.min.js"></script>
         <script type="text/javascript" src="/bootstrap/js/bootstrap-admin-theme-change-size.js"></script>
+        <script>
+        	/* $(function(){
+        		$("li").click(function(){
+        			$("li").removeClass('active');
+        			$(this).addClass('active');
+        		})
+        		$(".secondmenu").click(function(){
+        			
+        			$(this).addClass('active')
+        		})
+        	}) */
+        </script>
     </body>
 </html>

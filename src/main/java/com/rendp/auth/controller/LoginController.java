@@ -10,8 +10,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -74,7 +72,7 @@ public class LoginController {
 			model.addAttribute("username", name);
 			LoginUserCache.setAccordions(user.getName(), accordions);
 			
-			return "/layout/default";
+			return "/layout/main";
 		} catch(Exception e) {
 			LoginUserCache.remove(UserContext.getCurrent().getUser().getName());
 			return "/security/login";

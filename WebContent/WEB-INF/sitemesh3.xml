@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <sitemesh>
 
-	<mapping decorator="/views/layout/main.jsp" path="/*" />
+	<!-- <mapping decorator="/views/layout/main.jsp" path="/*" />
 	<mapping exclude="true" decorator="/views/sevurity" path="/views/sevurity/*" />
 	<mapping exclude="true" path="/index" />
+	<mapping exclude="true" path="/logout" /> -->
 	
 </sitemesh>
